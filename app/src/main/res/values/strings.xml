@@ -1,0 +1,11 @@
+<resources>
+    <string name="menu_clean">Clean database</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_new_logitem">New logitem</string>
+    <string name="menu_new_subject">New subject</string>
+    <string name="populate">Populate database</string>
+
+    <string name="empty_list_text"></string>
+
+    <string name="app_name">ECS Logger</string>
+</resources>
