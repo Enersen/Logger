@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+    // public class MainActivity extends Activity {
     ArrayList<HashMap<String, String>> subjectsList;
     DbHandler db = null;
     ListView listView = null;
