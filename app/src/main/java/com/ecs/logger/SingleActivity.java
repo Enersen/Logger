@@ -46,7 +46,7 @@ public class SingleActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
                 // String value = (String)adapter.getItemAtPosition(position);
-                TextView textView = (TextView) view.findViewById(R.id.id);
+                TextView textView = view.findViewById(R.id.id);
                 String str = textView.getText().toString();
                 long id = Long.parseLong(str);
                 // Toast toast = Toast.makeText(getApplicationContext(), str, 5);

@@ -132,7 +132,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 + " ORDER BY date_accessed, name";
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext()){
-            Log.e(Constants.LOG_TAG, "in while moveToNext");
+            // Log.e(Constants.LOG_TAG, "in while moveToNext");
             HashMap<String,String> subject = new HashMap<>();
             subject.put("id", cursor.getString(cursor.getColumnIndex(Constants.FIELD_NAME_SUBJECTS_ID)));
             subject.put("name", cursor.getString(cursor.getColumnIndex(Constants.FIELD_NAME_SUBJECTS_NAME)));
@@ -221,7 +221,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     public String stringToDate(String d) {
-        String s[] = d.split(":");
+        String[] s = d.split(":");
         return s[2] + "." + s[1] + "." + s[0] + " " + s[3] + ":" + s[4];
     }
 
