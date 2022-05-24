@@ -7,9 +7,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +24,7 @@ public class SingleActivity extends AppCompatActivity {
     ListView listView = null;
     SimpleAdapter listAdapter = null;
     long subjectId = 0;
+    String subject, comment, dateAdded, dateAccessed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +33,27 @@ public class SingleActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         subjectId = extras.getLong("id");
+        subject = extras.getString("subject");
+        comment = extras.getString("comment");
+        dateAdded = extras.getString("dateAdded");
+        dateAccessed = extras.getString("dateAccessed");
 
         db = new DbHandler(SingleActivity.this);
 
         // logitemsList.clear();
         logitemsList = db.getLogitems(subjectId);
+
+        TextView textViewId = findViewById(R.id.id);
+        TextView textViewSubject = findViewById(R.id.subject);
+        TextView textViewComment = findViewById(R.id.comment);
+        TextView textViewDateAdded = findViewById(R.id.date_added);
+        TextView textViewDateAccessed = findViewById(R.id.date_accessed);
+        Button btnAdd = findViewById(R.id.btnAdd);
+        textViewId.setText(Long.toString(subjectId));
+        textViewSubject.setText(subject);
+        textViewComment.setText(comment);
+        textViewDateAdded.setText(dateAdded);
+        textViewDateAccessed.setText(dateAccessed);
 
         listView = (ListView) findViewById(R.id.logitems_list);
         listAdapter = new SimpleAdapter(SingleActivity.this, logitemsList,
@@ -56,6 +75,26 @@ public class SingleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Button btn = view.findViewById(R.id.btnAdd);
+                String s = btn.getText().toString();
+
+                Toast toast = Toast.makeText(getApplicationContext(), s, 10);
+                toast.show();
+
+                /*
+                Intent intent = new Intent(getApplicationContext(), SingleActivityTwo.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                */
+
+                refreshData();
+            }
+        });
+
     }
 
     public void refreshData() {
@@ -94,7 +133,7 @@ public class SingleActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_options_menu, menu);
+        inflater.inflate(R.menu.subject_options_menu, menu);
         return true;
     }
 }

@@ -42,13 +42,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
                 // String value = (String)adapter.getItemAtPosition(position);
-                TextView textView = view.findViewById(R.id.id);
-                String str = textView.getText().toString();
-                long id = Long.parseLong(str);
+                TextView textViewId = view.findViewById(R.id.id);
+                TextView textViewSubject = view.findViewById(R.id.name);
+                TextView textViewComment = view.findViewById(R.id.comment);
+                TextView textViewDateAdded = view.findViewById(R.id.date_added);
+                TextView textViewDateAccessed = view.findViewById(R.id.date_accessed);
+                String s = textViewId.getText().toString();
+                String subject = textViewSubject.getText().toString();
+                String comment = textViewComment.getText().toString();
+                String dateAdded = textViewDateAdded.getText().toString();
+                String dateAccessed = textViewDateAccessed.getText().toString();
+                long id = Long.parseLong(s);
                 // Toast toast = Toast.makeText(getApplicationContext(), str, 5);
                 // toast.show();
                 Intent intent = new Intent(getApplicationContext(), SingleActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("subject", subject);
+                intent.putExtra("comment", comment);
+                intent.putExtra("dateAdded", dateAdded);
+                intent.putExtra("dateAccessed", dateAccessed);
                 startActivity(intent);
             }
         });
@@ -80,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.populate:
                 db.enterSomeSubjectData();
+                db.enterSomeLogitemData();
                 refreshData();
                 return true;
             default:
@@ -91,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_options_menu, menu);
+        menu.removeItem(2);
         return true;
     }
 }

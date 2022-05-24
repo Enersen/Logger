@@ -110,6 +110,29 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void enterSomeLogitemData() {
+        insertNewLogitemDetails(2, "Comment 01", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 02", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 03", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 04", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 05", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 06", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 07", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 08", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 09", makeDateString(), makeDateString());
+        insertNewLogitemDetails(2, "Comment 10", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 01", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 02", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 03", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 04", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 05", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 06", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 07", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 08", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 09", makeDateString(), makeDateString());
+        insertNewLogitemDetails(4, "Comment 10", makeDateString(), makeDateString());
+    }
+
     // Adding new Subject Details
     public void insertNewLogitemDetails(long subject, String comment, String date_added, String date_happened){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -129,7 +152,7 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> userList = new ArrayList<>();
         String query = "SELECT id, name, comment, date_added, date_accessed FROM " + Constants.TABLE_NAME_SUBJECTS
-                + " ORDER BY date_accessed, name";
+                + " ORDER BY date_accessed DESC, name";
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext()){
             // Log.e(Constants.LOG_TAG, "in while moveToNext");
@@ -150,7 +173,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ArrayList<HashMap<String, String>> logitemsList = new ArrayList<>();
         String query = "SELECT id, subject, comment, date_added, date_happened FROM " + Constants.TABLE_NAME_LOGITEMS
                 + " WHERE subject = " + id
-                + " ORDER BY date_happened";
+                + " ORDER BY date_happened DESC, date_added";
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext()){
             HashMap<String,String> logitem = new HashMap<>();
@@ -207,9 +230,9 @@ public class DbHandler extends SQLiteOpenHelper {
         cVals.put(Constants.FIELD_NAME_SUBJECTS_NAME, name);
         cVals.put(Constants.FIELD_NAME_SUBJECTS_COMMENT, comment);
         cVals.put(Constants.FIELD_NAME_SUBJECTS_DATE_ADDED, date_added);
-        cVals.put(Constants.FIELD_NAME_SUBJECTS_DATE_ACCESSED, makeDateString());
+        cVals.put(Constants.FIELD_NAME_SUBJECTS_DATE_ACCESSED, date_accessed);
         int count = db.update(Constants.TABLE_NAME_SUBJECTS, cVals, Constants.FIELD_NAME_SUBJECTS_ID +
-                " = ?",new String[]{String.valueOf(id)});
+                " = ?", new String[]{String.valueOf(id)});
         return  count;
     }
 
